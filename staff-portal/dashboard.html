@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Staff Dashboard | David Wang Staff Portal</title>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="js/auth-guard.js"></script>
+  </head>
+  <body>
+    <main id="dashboard-main" class="shell" hidden>
+      <section class="hero-band dashboard-header" aria-labelledby="dashboard-title">
+        <div>
+          <p class="brand">David Wang Custom Furniture</p>
+          <h1 id="dashboard-title">Staff Dashboard</h1>
+          <p id="welcome-message" class="subtitle"></p>
+        </div>
+        <button id="logout-button" class="secondary-button" type="button">Log Out</button>
+      </section>
+      <section class="dashboard-panel page-content">
+        <div class="staff-summary">
+          <h2>Operations</h2>
+          <p>Move through the atelier workflow from first client contact to delivery and support.</p>
+          <nav class="nav-menu" aria-label="Staff operations">
+            <a id="new-order-link" class="nav-menu-item" href="orders-new.html" hidden>
+              <span class="nav-title">Create Customer &amp; Order</span>
+              <span class="nav-desc">Invite a client and open a new furniture order.</span>
+            </a>
+            <a id="quotations-link" class="nav-menu-item" href="quotations.html" hidden>
+              <span class="nav-title">Quotations</span>
+              <span class="nav-desc">Quick quotes for prospects, link them to clients later.</span>
+            </a>
+            <a id="receipts-link" class="nav-menu-item" href="receipts.html" hidden>
+              <span class="nav-title">Receipts</span>
+              <span class="nav-desc">Receipts for payments received, link them to clients later.</span>
+            </a>
+            <a id="staff-details-link" class="nav-menu-item" href="staff-details.html" hidden>
+              <span class="nav-title">Staff Details</span>
+              <span class="nav-desc">Set the name, phone and email shown on quotations.</span>
+            </a>
+            <a id="production-board-link" class="nav-menu-item" href="production-board.html" hidden>
+              <span class="nav-title">Production Board</span>
+              <span class="nav-desc">See what is in production, by due date.</span>
+            </a>
+            <a class="nav-menu-item" href="order-management.html">
+              <span class="nav-title">Order Management</span>
+              <span class="nav-desc">Update production stages, order items, payments, and balances.</span>
+            </a>
+            <a class="nav-menu-item" href="job-cards.html">
+              <span class="nav-title">Job Cards</span>
+              <span class="nav-desc">Create and sort production spec sheets by estimated completion date.</span>
+            </a>
+            <a class="nav-menu-item" href="delivery-bookings.html">
+              <span class="nav-title">Delivery Bookings</span>
+              <span class="nav-desc">Confirm, decline, and complete requested delivery dates.</span>
+            </a>
+            <a class="nav-menu-item" href="support-requests.html">
+              <span class="nav-title">Support Requests</span>
+              <span class="nav-desc">Review client questions and respond from the staff portal.</span>
+            </a>
+            <a class="nav-menu-item" href="contact-inquiries.html">
+              <span class="nav-title">Contact Inquiries</span>
+              <span class="nav-desc">Review public website inquiries and update their follow-up status.</span>
+            </a>
+          </nav>
+          <section id="leaderboard-section" class="leaderboard" style="display:none;">
+            <div class="leaderboard-header">
+              <button type="button" id="lb-prev" class="btn btn-ghost lb-arrow" aria-label="Previous month">&larr;</button>
+              <div class="leaderboard-title">
+                <p class="label">Leaderboard</p>
+                <h2 id="lb-month-label"></h2>
+                <p id="lb-month-note" class="field-hint"></p>
+              </div>
+              <button type="button" id="lb-next" class="btn btn-ghost lb-arrow" aria-label="Next month">&rarr;</button>
+            </div>
+            <ol id="lb-list" class="lb-list"></ol>
+            <div id="lb-admin" class="lb-admin" style="display:none;">
+              <label for="lb-add-select">Add staff member</label>
+              <div class="adjust-row-controls">
+                <select id="lb-add-select"></select>
+                <button type="button" id="lb-add-button" class="btn btn-ghost">Add</button>
+              </div>
+            </div>
+            <p id="lb-message" class="form-message" aria-live="polite"></p>
+          </section>
+        </div>
+      </section>
+    </main>
+    <script type="module">
+      function showDashboard(profile) {
+        if (profile.role === 'production') {
+          window.location.replace('production-board.html');
+          return;
+        }
+
+        document.getElementById('welcome-message').textContent =
+          `Welcome, ${profile.fullName} (${profile.role})`;
+        document.getElementById('dashboard-main').hidden = false;
+      }
+
+      if (window.staffProfile) {
+        showDashboard(window.staffProfile);
+      } else {
+        window.addEventListener('staffProfileReady', (event) => showDashboard(event.detail), { once: true });
+      }
+
+      function showSalesActions(profile) {
+        if (profile.role === 'sales' || profile.role === 'admin') {
+          document.getElementById('new-order-link').hidden = false;
+          document.getElementById('quotations-link').hidden = false;
+          document.getElementById('receipts-link').hidden = false;
+        }
+      }
+
+      if (window.staffProfile) {
+        showSalesActions(window.staffProfile);
+      } else {
+        window.addEventListener('staffProfileReady', (event) => showSalesActions(event.detail), { once: true });
+      }
+
+      function showAdminActions(profile) {
+        if (profile.role === 'admin') {
+          document.getElementById('staff-details-link').hidden = false;
+          document.getElementById('production-board-link').hidden = false;
+        }
+      }
+
+      if (window.staffProfile) {
+        showAdminActions(window.staffProfile);
+      } else {
+        window.addEventListener('staffProfileReady', (event) => showAdminActions(event.detail), { once: true });
+      }
+    </script>
+    <script type="module" src="js/leaderboard.js"></script>
+    <script type="module" src="js/logout.js"></script>
+  </body>
+</html>

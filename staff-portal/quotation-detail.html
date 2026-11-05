@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quotation | David Wang Staff Portal</title>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="js/auth-guard.js"></script>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero-band dashboard-header" aria-labelledby="page-title">
+        <div>
+          <p class="brand">David Wang Custom Furniture</p>
+          <h1 id="page-title">New Quotation</h1>
+          <p class="subtitle">Capture a prospect quote now and link it to a client account later.</p>
+        </div>
+        <a class="text-button" href="quotations.html">Quotations</a>
+      </section>
+
+      <section class="dashboard-panel form-panel page-content">
+        <aside id="converted-banner" class="converted-banner" hidden aria-live="polite"></aside>
+        <section id="order-documents-section" class="order-documents-section" hidden aria-live="polite">
+          <p id="order-docs-status" class="field-note"></p>
+          <button id="attach-pdf-button" type="button">Add quotation PDF to order documents</button>
+        </section>
+        <p id="quote-number-display" class="quote-number" hidden></p>
+        <form id="quote-form">
+          <fieldset>
+            <legend>Client details</legend>
+            <div class="form-grid">
+              <label for="client-name">
+                Full Name
+                <input id="client-name" type="text" autocomplete="name" required>
+              </label>
+              <label for="client-email">
+                Email
+                <input id="client-email" type="email" autocomplete="email">
+              </label>
+              <div class="phone-input-group">
+                <label for="phone-country-code">
+                  Country Code
+                  <select id="phone-country-code" autocomplete="tel-country-code"></select>
+                </label>
+                <label for="phone-local">
+                  Phone
+                  <input id="phone-local" type="tel" autocomplete="tel-national" maxlength="9" inputmode="numeric" placeholder="821234567">
+                </label>
+              </div>
+              <label for="client-address" class="full-row">
+                Address
+                <textarea id="client-address" rows="3" autocomplete="street-address"></textarea>
+              </label>
+              <label class="currency-select-field full-row" for="quote-currency">Currency<select id="quote-currency"></select></label>
+            </div>
+          </fieldset>
+          <button id="save-quote-button" type="submit">Save</button>
+        </form>
+
+        <p id="message" class="message" aria-live="polite"></p>
+
+        <section id="items-section" class="management-section" hidden>
+          <h2>Items</h2>
+          <form id="item-form" class="form-grid">
+            <label for="item-product-name">
+              Product Name
+              <input id="item-product-name" type="text" required>
+            </label>
+            <label for="item-material">
+              Material
+              <input id="item-material" type="text">
+            </label>
+            <label for="item-colour">
+              Colour
+              <input id="item-colour" type="text">
+            </label>
+            <label for="item-unit-price">
+              <span class="currency-label-text">Unit Price (<span data-currency-label>USD</span>)</span>
+              <input id="item-unit-price" type="number" min="0" step="0.01" required>
+            </label>
+            <label for="item-quantity">
+              Quantity
+              <input id="item-quantity" type="number" min="1" step="1" value="1" required>
+            </label>
+            <label for="item-discount"><span class="currency-label-text">Discount (<span data-currency-label>USD</span>)</span><input id="item-discount" type="number" min="0" step="0.01" inputmode="decimal"><small>Optional. Taken off this item's total.</small></label>
+            <label for="item-measurements" class="full-row">
+              Measurements
+              <textarea id="item-measurements" rows="2"></textarea>
+            </label>
+            <label for="item-custom-requirements" class="full-row">
+              Custom Requirements
+              <textarea id="item-custom-requirements" rows="2"></textarea>
+            </label>
+            <button id="add-item-button" type="button">Add Item</button>
+          </form>
+          <ul id="items-list" class="management-list quotations-list"></ul>
+          <div id="quote-adjustments" class="adjustment-rows">
+            <div class="adjust-row">
+              <label for="delivery-fee"><span class="currency-label-text">Delivery fee (<span data-currency-label>USD</span>)</span></label>
+              <div class="adjust-row-controls">
+                <input id="delivery-fee" type="number" min="0" step="0.01" inputmode="decimal">
+                <button id="save-delivery-fee-button" class="btn btn-ghost" type="button">Save</button>
+              </div>
+              <p class="field-hint">Leave blank if delivery is still to be quoted.</p>
+            </div>
+            <div class="adjust-row">
+              <label for="quote-discount"><span class="currency-label-text">Discount (<span data-currency-label>USD</span>)</span></label>
+              <div class="adjust-row-controls">
+                <input id="quote-discount" type="number" min="0" step="0.01" inputmode="decimal">
+                <button id="save-discount-button" class="btn btn-ghost" type="button">Save</button>
+              </div>
+              <p class="field-hint">Optional. Taken off the sub total.</p>
+            </div>
+          </div>
+          <p id="adjust-message" class="form-message" aria-live="polite"></p>
+          <div id="totals-panel" hidden></div>
+        </section>
+
+        <section id="link-section" class="management-section" hidden>
+          <h2>Link to a client</h2>
+          <p id="linked-display" class="field-note"></p>
+          <div class="quote-link-actions">
+            <label for="customer-search-input">
+              Search clients
+              <input id="customer-search-input" type="search" autocomplete="off" placeholder="Search client by phone or name">
+            </label>
+            <button id="unlink-button" class="secondary-button" type="button">Unlink</button>
+          </div>
+          <ul id="customer-search-results" class="customer-search-results"></ul>
+        </section>
+
+        <div class="action-row quote-command-row">
+          <div class="action-row-main export-action">
+            <button id="export-pdf-button" type="button" hidden>Export PDF</button>
+            <p id="export-message" class="form-message" aria-live="polite"></p>
+          </div>
+          <div class="action-row-danger">
+            <button id="delete-quote-button" class="danger-button" type="button" hidden>Delete Quotation</button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="js/quotation-detail.js"></script>
+  </body>
+</html>

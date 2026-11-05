@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Support | David Wang Customer Portal</title>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="js/auth-guard.js"></script>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero-band dashboard-header" aria-labelledby="page-title">
+        <div>
+          <p class="brand">David Wang Custom Furniture</p>
+          <h1 id="page-title">Support</h1>
+          <p class="subtitle">Send a support request and review staff responses.</p>
+        </div>
+        <a class="text-button" href="dashboard.html">Dashboard</a>
+      </section>
+      <section class="dashboard-panel support-panel page-content">
+
+        <form id="support-form" class="support-form">
+          <label for="subject">
+            Subject
+            <input id="subject" name="subject" type="text" autocomplete="off" required>
+          </label>
+          <label for="order-select">
+            Related order
+            <select id="order-select" name="order-select">
+              <option value="">General inquiry (no specific order)</option>
+            </select>
+          </label>
+          <label for="message-input">
+            Message
+            <textarea id="message-input" name="message-input" rows="4" required></textarea>
+          </label>
+          <button type="submit">Submit Request</button>
+        </form>
+
+        <p id="message" class="message" aria-live="polite"></p>
+
+        <section class="support-list-panel" aria-labelledby="requests-title">
+          <h2 id="requests-title">Your Requests</h2>
+          <ul id="requests-list" class="support-request-list">
+            <li>Loading your requests...</li>
+          </ul>
+        </section>
+      </section>
+    </main>
+    <script type="module" src="js/support.js"></script>
+  </body>
+</html>

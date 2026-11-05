@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Support Requests | David Wang Staff Portal</title>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="js/auth-guard.js"></script>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero-band dashboard-header" aria-labelledby="page-title">
+        <div>
+          <p class="brand">David Wang Custom Furniture</p>
+          <h1 id="page-title">Support Requests</h1>
+          <p class="subtitle">Review customer messages and save staff responses.</p>
+        </div>
+        <a class="text-button" href="dashboard.html">Dashboard</a>
+      </section>
+      <section class="dashboard-panel form-panel page-content">
+
+        <p id="message" class="message" aria-live="polite"></p>
+
+        <section class="document-panel" aria-labelledby="requests-title">
+          <h2 id="requests-title">Requests</h2>
+          <ul id="requests-list" class="support-request-list">
+            <li>Loading support requests...</li>
+          </ul>
+        </section>
+      </section>
+    </main>
+    <script type="module" src="js/support-requests.js"></script>
+  </body>
+</html>

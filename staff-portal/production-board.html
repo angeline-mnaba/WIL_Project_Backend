@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Production Board | David Wang Staff Portal</title>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="js/auth-guard.js"></script>
+  </head>
+  <body>
+    <main id="production-board-main" class="shell" hidden>
+      <section class="hero-band dashboard-header" aria-labelledby="page-title">
+        <div>
+          <p class="brand">David Wang Custom Furniture</p>
+          <h1 id="page-title">Production Board</h1>
+          <p class="subtitle">Orders in production, earliest due date first.</p>
+        </div>
+        <div class="button-row">
+          <a id="production-dashboard-link" class="text-button" href="dashboard.html" hidden>Dashboard</a>
+          <button id="logout-button" class="secondary-button" type="button">Log Out</button>
+        </div>
+      </section>
+      <section class="dashboard-panel page-content">
+        <div class="production-board-controls">
+          <button id="toggle-archived-button" class="text-button" type="button">Show archived</button>
+          <button id="refresh-board-button" type="button">Refresh</button>
+          <p id="board-counter" class="field-note" aria-live="polite"></p>
+        </div>
+        <p id="message" class="message" aria-live="polite"></p>
+        <section id="production-board" class="production-board" aria-label="Orders in production" tabindex="0">
+          <div id="production-board-cards" class="horizontal-scroller"></div>
+        </section>
+      </section>
+    </main>
+    <script type="module" src="js/production-board.js"></script>
+    <script type="module" src="js/logout.js"></script>
+  </body>
+</html>

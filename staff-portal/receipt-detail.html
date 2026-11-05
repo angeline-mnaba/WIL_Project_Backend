@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Receipt | David Wang Staff Portal</title>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="js/auth-guard.js"></script>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero-band dashboard-header" aria-labelledby="page-title">
+        <div>
+          <p class="brand">David Wang Custom Furniture</p>
+          <h1 id="page-title">New Receipt</h1>
+          <p class="subtitle">Record a received payment and link it to a client later when needed.</p>
+        </div>
+        <a class="text-button" href="receipts.html">Receipts</a>
+      </section>
+      <section class="dashboard-panel form-panel page-content">
+        <p id="receipt-number-display" class="quote-number" hidden></p>
+        <form id="receipt-form">
+          <fieldset>
+            <legend>Client details</legend>
+            <div class="form-grid">
+              <label for="client-name">Full Name<input id="client-name" type="text" autocomplete="name" required></label>
+              <label for="client-email">Email<input id="client-email" type="email" autocomplete="email"></label>
+              <div class="phone-input-group">
+                <label for="phone-country-code">Country Code<select id="phone-country-code" autocomplete="tel-country-code"></select></label>
+                <label for="phone-local">Phone<input id="phone-local" type="tel" autocomplete="tel-national" maxlength="9" inputmode="numeric" placeholder="821234567"></label>
+              </div>
+              <label for="client-address" class="full-row">Address<textarea id="client-address" rows="3" autocomplete="street-address"></textarea></label>
+              <label for="order-total"><span class="currency-label-text">Order total (<span data-currency-label>USD</span>)</span><input id="order-total" type="number" min="0" step="0.01" inputmode="decimal"></label>
+              <label class="currency-select-field" for="receipt-currency">Currency<select id="receipt-currency"></select></label>
+              <p class="field-note">Optional. If filled in, the receipt shows the balance remaining.</p>
+            </div>
+          </fieldset>
+          <button id="save-receipt-button" type="submit">Save</button>
+        </form>
+        <p id="message" class="message" aria-live="polite"></p>
+        <section id="payments-section" class="management-section" hidden>
+          <h2>Payments</h2>
+          <form id="payment-form" class="form-grid">
+            <label for="payment-description">Description<input id="payment-description" type="text" required></label>
+            <label for="payment-date">Payment date<input id="payment-date" type="date" required></label>
+            <label for="payment-method">Method<input id="payment-method" type="text" list="payment-method-options"></label>
+            <label for="payment-amount"><span class="currency-label-text">Amount (<span data-currency-label>USD</span>)</span><input id="payment-amount" type="number" min="0.01" step="0.01" inputmode="decimal" required></label>
+            <button id="add-payment-button" type="button">Add Payment</button>
+          </form>
+          <datalist id="payment-method-options"><option value="Cash"><option value="Bank transfer"><option value="EcoCash"><option value="Card"></datalist>
+          <ul id="payments-list" class="management-list quotations-list"></ul>
+        </section>
+        <section id="totals-panel" class="quote-totals" hidden aria-label="Receipt totals">
+          <p><span>Total paid</span><strong id="total-paid-display"></strong></p>
+          <p id="order-total-row" hidden><span>Order total</span><strong id="order-total-display"></strong></p>
+          <p id="balance-row" class="quote-grand-total" hidden><span>Balance remaining</span><strong id="balance-display"></strong></p>
+        </section>
+        <section id="link-section" class="management-section" hidden>
+          <h2>Link to a client</h2>
+          <p id="linked-display" class="field-note"></p>
+          <div class="quote-link-actions">
+            <label for="customer-search-input">Search clients<input id="customer-search-input" type="search" autocomplete="off" placeholder="Search client by phone or name"></label>
+            <button id="unlink-button" class="secondary-button" type="button">Unlink</button>
+          </div>
+          <ul id="customer-search-results" class="customer-search-results"></ul>
+        </section>
+        <div class="action-row quote-command-row">
+          <div class="action-row-main export-action">
+            <button id="export-pdf-button" type="button" hidden>Export PDF</button>
+            <p id="export-message" class="form-message" aria-live="polite"></p>
+          </div>
+          <div class="action-row-danger">
+            <button id="delete-receipt-button" class="danger-button" type="button" hidden>Delete Receipt</button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="js/receipt-detail.js"></script>
+  </body>
+</html>

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>New Order | David Wang Staff Portal</title>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="js/auth-guard.js"></script>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero-band dashboard-header" aria-labelledby="page-title">
+        <div>
+          <p class="brand">David Wang Custom Furniture</p>
+          <h1 id="page-title">Create Customer &amp; Order</h1>
+          <p class="subtitle">Create an order for a new invited customer or an existing customer profile.</p>
+        </div>
+        <a class="text-button" href="dashboard.html">Dashboard</a>
+      </section>
+      <section class="dashboard-panel form-panel page-content">
+
+        <form id="order-form">
+          <fieldset>
+            <legend>Client details</legend>
+            <div class="mode-toggle" role="radiogroup" aria-label="Customer mode">
+              <label>
+                <input type="radio" name="mode" value="new">
+                New Customer
+              </label>
+              <label>
+                <input type="radio" name="mode" value="existing" checked>
+                Existing Customer
+              </label>
+            </div>
+
+            <div id="new-customer-fields" class="form-grid">
+              <label for="customer-full-name">
+                Full Name
+                <input id="customer-full-name" name="customer-full-name" type="text" autocomplete="name" required>
+              </label>
+              <label for="customer-email">
+                Email
+                <input id="customer-email" name="customer-email" type="email" autocomplete="email" required>
+              </label>
+              <div class="phone-input-group">
+                <label for="phone-country-code">
+                  Country Code
+                  <select id="phone-country-code" name="phone-country-code" autocomplete="tel-country-code"></select>
+                </label>
+                <label for="phone-local">
+                  Phone
+                  <input id="phone-local" name="phone-local" type="tel" autocomplete="tel-national" inputmode="numeric" maxlength="9" pattern="[0-9]{9}" placeholder="821234567">
+                </label>
+              </div>
+              <p class="field-note full-row">Enter digits only, without a leading zero or country code.</p>
+              <label for="customer-address" class="full-row">
+                Address
+                <textarea id="customer-address" name="customer-address" rows="3"></textarea>
+              </label>
+            </div>
+
+            <div id="existing-customer-fields" class="existing-customer-fields" hidden>
+              <label for="customer-search">
+                Search Existing Customers
+                <input id="customer-search" name="customer-search" type="search" autocomplete="off" placeholder="Search by name or phone number">
+              </label>
+              <div id="customer-results" class="customer-results" aria-live="polite"></div>
+              <p id="selected-customer" class="selected-customer" hidden></p>
+            </div>
+          </fieldset>
+
+        </form>
+        <section class="management-section order-items-builder" aria-labelledby="order-items-title">
+          <h2 id="order-items-title">Items</h2>
+          <label class="currency-select-field" for="order-currency">Currency<select id="order-currency"></select></label>
+          <div id="item-form-container"></div>
+          <ul id="items-list" class="management-list quotations-list"></ul>
+          <div id="totals-container"></div>
+        </section>
+        <section class="management-section" aria-labelledby="order-details-title">
+          <h2 id="order-details-title">Order</h2>
+          <p class="field-note">Order number will be assigned automatically on submission.</p>
+          <div class="form-grid">
+            <label for="delivery-fee"><span class="currency-label-text">Delivery fee (<span data-currency-label>USD</span>)</span><input id="delivery-fee" form="order-form" type="number" min="0" step="0.01" inputmode="decimal"><small>Leave blank if delivery is still to be quoted.</small></label>
+            <label for="order-discount"><span class="currency-label-text">Discount (<span data-currency-label>USD</span>)</span><input id="order-discount" form="order-form" type="number" min="0" step="0.01" inputmode="decimal"><small>Optional. Taken off the sub total.</small></label>
+            <label for="completion-date">Estimated Completion Date<input id="completion-date" form="order-form" type="date"></label>
+          </div>
+          <p id="success-message" class="success-message" hidden></p>
+          <p id="error-message" class="error-message" hidden></p>
+          <button id="submit-order" form="order-form" type="submit">Create Order</button>
+        </section>
+      </section>
+    </main>
+    <script type="module" src="js/orders-new.js"></script>
+  </body>
+</html>

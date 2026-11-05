@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Job Card | David Wang Staff Portal</title>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="js/auth-guard.js"></script>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero-band dashboard-header" aria-labelledby="page-title">
+        <div>
+          <p class="brand">David Wang Custom Furniture</p>
+          <h1 id="page-title">Job Card</h1>
+          <p class="subtitle">Capture the structured production brief for a custom furniture piece.</p>
+        </div>
+        <a class="text-button" href="job-cards.html">Job Cards</a>
+      </section>
+
+      <section class="dashboard-panel form-panel page-content">
+        <p id="message" class="message" aria-live="polite"></p>
+
+        <section class="management-section order-link-section" aria-labelledby="order-link-title">
+          <h2 id="order-link-title">Linked Order</h2>
+          <p id="linked-order-display" class="muted-message">Not linked to an order</p>
+          <div class="order-search-block">
+            <label for="order-search-input">
+              Search by order number or phone
+              <input id="order-search-input" type="text" autocomplete="off" placeholder="Search by order number or phone">
+            </label>
+            <button id="unlink-order-button" class="secondary-button" type="button">Unlink</button>
+          </div>
+          <ul id="order-search-results" class="management-list order-search-results"></ul>
+        </section>
+
+        <section class="management-section canvas-section" aria-labelledby="canvas-title">
+          <h2 id="canvas-title">Sketch Board</h2>
+          <div class="canvas-toolbar">
+            <button type="button" id="tool-select" class="tool-button active">Select/Move</button>
+            <button type="button" id="tool-draw" class="tool-button">Draw</button>
+            <button type="button" id="tool-erase" class="tool-button">Eraser</button>
+            <label class="tool-color-label" for="draw-colour">
+              Colour
+              <input type="color" id="draw-colour" value="#1a1a1a">
+            </label>
+            <label class="tool-width-label" for="draw-width">
+              Pen size
+              <input type="range" id="draw-width" min="1" max="12" value="3">
+            </label>
+            <button type="button" id="tool-add-text">+ Text Note</button>
+            <button type="button" id="tool-add-image">+ Photo</button>
+            <input type="file" id="image-file-input" accept="image/*" style="display: none;">
+            <button type="button" id="tool-crop">Crop Photo</button>
+            <button type="button" id="apply-crop-button" style="display: none;">Apply Crop</button>
+            <button type="button" id="cancel-crop-button" style="display: none;">Cancel Crop</button>
+            <button type="button" id="tool-delete-selected">Delete Selected</button>
+            <button type="button" id="tool-clear-canvas">Clear Board</button>
+          </div>
+
+          <div id="job-card-canvas-wrap">
+            <canvas id="job-card-canvas"></canvas>
+          </div>
+        </section>
+
+        <form id="job-card-form" class="form-grid">
+          <label for="client-name">
+            Client Name
+            <input id="client-name" type="text" autocomplete="name" required>
+          </label>
+          <label for="client-phone">
+            Client Phone
+            <input id="client-phone" type="tel" autocomplete="tel">
+          </label>
+          <label for="client-email">
+            Client Email
+            <input id="client-email" type="email" autocomplete="email">
+          </label>
+          <label for="completion-date">
+            Estimated Completion Date
+            <input id="completion-date" type="date">
+          </label>
+          <label for="design" class="full-row">
+            Design
+            <textarea id="design" rows="3"></textarea>
+          </label>
+          <label for="fabric" class="full-row">
+            Fabric
+            <textarea id="fabric" rows="3"></textarea>
+          </label>
+          <label for="dimensions">
+            Dimensions
+            <input id="dimensions" type="text">
+          </label>
+          <label for="colour">
+            Colour
+            <input id="colour" type="text">
+          </label>
+          <label for="customisation-details" class="full-row">
+            Customisation Details
+            <textarea id="customisation-details" rows="4"></textarea>
+          </label>
+          <div class="button-row full-row">
+            <button type="submit">Save</button>
+          </div>
+          <div class="action-row full-row">
+            <div class="action-row-main export-action">
+              <button id="export-pdf-button" class="secondary-button" type="button" style="display: none;">Export PDF</button>
+              <p id="export-message" class="form-message" aria-live="polite"></p>
+            </div>
+            <div class="action-row-danger">
+              <button id="archive-toggle-button" class="secondary-button" type="button">Archive as completed</button>
+              <button id="delete-job-card-button" class="secondary-button danger-button" type="button" style="display: none;">Delete</button>
+            </div>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
+    <script type="module" src="js/job-card-detail.js"></script>
+  </body>
+</html>

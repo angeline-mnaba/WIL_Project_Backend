@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Staff Details | David Wang Staff Portal</title>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="js/auth-guard.js"></script>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero-band dashboard-header" aria-labelledby="page-title">
+        <div>
+          <p class="brand">David Wang Custom Furniture</p>
+          <h1 id="page-title">Staff Details</h1>
+          <p class="subtitle">Set the contact details shown on quotations issued by each staff member.</p>
+        </div>
+        <a class="text-button" href="dashboard.html">Dashboard</a>
+      </section>
+      <section class="dashboard-panel page-content">
+        <p class="field-note">Shown on quotations created by this staff member. Leave phone/email blank to use the business defaults.</p>
+        <p id="message" class="message" aria-live="polite"></p>
+        <ul id="staff-list" class="management-list staff-details-list"></ul>
+      </section>
+    </main>
+    <script type="module" src="js/staff-details.js"></script>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Job Cards | David Wang Staff Portal</title>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="js/auth-guard.js"></script>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero-band dashboard-header" aria-labelledby="page-title">
+        <div>
+          <p class="brand">David Wang Custom Furniture</p>
+          <h1 id="page-title">Job Cards</h1>
+          <p class="subtitle">Track production specs and sort upcoming work by estimated completion date.</p>
+        </div>
+        <a class="text-button" href="dashboard.html">Dashboard</a>
+      </section>
+
+      <section class="dashboard-panel page-content">
+        <div class="button-row job-card-actions">
+          <a class="action-link" href="job-card-detail.html">New Job Card</a>
+          <button id="toggle-archived-button" class="secondary-button" type="button">Show archived</button>
+        </div>
+
+        <p id="message" class="message" aria-live="polite"></p>
+        <ul id="job-cards-list" class="management-list job-cards-list">
+          <li>Loading job cards...</li>
+        </ul>
+      </section>
+    </main>
+
+    <script type="module" src="js/job-cards.js"></script>
+  </body>
+</html>

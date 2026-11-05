@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Account | David Wang Customer Portal</title>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero-band" aria-labelledby="signup-title">
+        <p class="brand">David Wang Custom Furniture</p>
+        <h1 id="signup-title">Create Account</h1>
+        <p class="subtitle">Use the same email address you want linked to your customer orders.</p>
+      </section>
+      <section class="page-content auth-content">
+        <p id="confirm-email-message" class="notice">Account created. Please check your email to confirm your address before logging in.</p>
+        <form id="signup-form">
+          <label for="full-name">
+            Full Name
+            <input id="full-name" name="full-name" type="text" autocomplete="name" required>
+          </label>
+          <div class="phone-input-group">
+            <label for="phone-country-code">
+              Country Code
+              <select id="phone-country-code" name="phone-country-code" autocomplete="tel-country-code"></select>
+            </label>
+            <label for="phone-local">
+              Phone
+              <input id="phone-local" name="phone-local" type="tel" autocomplete="tel-national" inputmode="numeric" maxlength="9" pattern="[0-9]{9}" placeholder="821234567">
+            </label>
+          </div>
+          <p class="field-note">Enter digits only, without a leading zero or country code.</p>
+          <label for="email">
+            Email
+            <input id="email" name="email" type="email" autocomplete="email" required>
+          </label>
+          <label for="password">
+            Password
+            <input id="password" name="password" type="password" autocomplete="new-password" minlength="6" required>
+          </label>
+          <label for="confirm-password">
+            Confirm Password
+            <input id="confirm-password" name="confirm-password" type="password" autocomplete="new-password" minlength="6" required>
+          </label>
+          <p id="error-message" class="error" aria-live="polite"></p>
+          <button id="signup-submit" type="submit">Create Account</button>
+        </form>
+        <p class="alt-action">Already have an account? <a href="login.html">Log in</a>.</p>
+      </section>
+    </main>
+    <script type="module" src="js/signup.js"></script>
+  </body>
+</html>

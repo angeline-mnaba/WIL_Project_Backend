@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Order Management | David Wang Staff Portal</title>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="js/auth-guard.js"></script>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero-band dashboard-header" aria-labelledby="page-title">
+        <div>
+          <p class="brand">David Wang Custom Furniture</p>
+          <h1 id="page-title">Order Management</h1>
+          <p class="subtitle">Update production stages, manage order items, review history, and record customer payments.</p>
+        </div>
+        <a class="text-button" href="dashboard.html">Dashboard</a>
+      </section>
+      <section class="dashboard-panel form-panel page-content">
+
+        <form id="order-search-form" class="inline-form">
+          <label for="order-number">
+            Order Number, Name or Phone Number
+            <input id="order-number" name="order-number" type="text" autocomplete="off" placeholder="Search by order number, name or phone" required>
+          </label>
+          <button type="submit">Load Order</button>
+        </form>
+
+        <p id="message" class="message" aria-live="polite"></p>
+        <ul id="customer-search-results" class="management-list search-results-list" hidden></ul>
+        <ul id="order-search-results" class="management-list search-results-list" hidden></ul>
+
+        <section id="order-summary" class="order-summary" aria-label="Order summary" hidden></section>
+
+        <section id="stage-section" class="management-section" aria-labelledby="stage-title" hidden>
+          <h2 id="stage-title">Change Stage</h2>
+          <form id="stage-form">
+            <label for="stage-select">
+              New stage
+              <select id="stage-select" name="stage-select" required>
+                <option value="order_confirmed">Order Confirmed</option>
+                <option value="design_approved">Design Approved</option>
+                <option value="materials_ordered">Materials Ordered</option>
+                <option value="in_production">In Production</option>
+                <option value="finishing">Upholstery / Finishing</option>
+                <option value="quality_inspection">Quality Inspection</option>
+                <option value="ready_for_delivery">Ready for Delivery</option>
+                <option value="delivered">Delivered</option>
+              </select>
+            </label>
+            <label for="stage-notes">
+              Notes
+              <textarea id="stage-notes" name="stage-notes" rows="3"></textarea>
+            </label>
+            <button type="submit">Update Stage</button>
+          </form>
+        </section>
+
+        <section id="items-section" class="management-section" aria-labelledby="items-title" hidden>
+          <h2 id="items-title">Order Items</h2>
+          <div id="item-form-container"></div>
+          <ul id="items-list" class="management-list">
+            <li>Load an order to view items.</li>
+          </ul>
+          <div id="delivery-fee-controls" class="adjustment-rows">
+            <div class="adjust-row">
+              <label for="delivery-fee-input"><span class="currency-label-text">Delivery fee (<span data-currency-label>USD</span>)</span></label>
+              <div class="adjust-row-controls">
+                <input id="delivery-fee-input" type="number" min="0" step="0.01">
+                <button id="save-delivery-fee" class="btn btn-ghost" type="button">Save delivery fee</button>
+              </div>
+              <p class="field-hint">Leave blank if delivery is still to be quoted.</p>
+            </div>
+            <div class="adjust-row">
+              <label for="discount-input"><span class="currency-label-text">Order discount (<span data-currency-label>USD</span>)</span></label>
+              <div class="adjust-row-controls">
+                <input id="discount-input" type="number" min="0" step="0.01">
+                <button id="save-discount" class="btn btn-ghost" type="button">Save discount</button>
+              </div>
+              <p class="field-hint">Optional. Taken off the sub total.</p>
+            </div>
+          </div>
+          <div id="order-totals-container"></div>
+        </section>
+
+        <section id="order-documents-section" class="management-section" aria-labelledby="documents-title" hidden>
+          <h2 id="documents-title">Documents</h2>
+          <p class="field-note">Documents are generated from the order's current items and payments.</p>
+          <div id="generate-buttons" class="button-row">
+            <button type="button" data-type="quotation">Generate Quotation</button>
+            <button type="button" data-type="invoice">Generate Invoice</button>
+            <button type="button" data-type="receipt">Generate Receipt</button>
+          </div>
+          <p id="order-documents-message" class="message" aria-live="polite"></p>
+          <h3>Previously Generated</h3>
+          <ul id="documents-list" class="documents-list"></ul>
+          <button id="toggle-docs-button" class="secondary-button" type="button" hidden>Show older versions</button>
+        </section>
+
+        <section id="order-images-section" class="management-section" aria-labelledby="order-images-title" hidden>
+          <h2 id="order-images-title">Order Images</h2>
+          <div class="order-image-upload-controls">
+            <input id="order-image-input" type="file" multiple accept="image/jpeg,image/png,image/webp,image/gif" hidden>
+            <button id="add-images-button" type="button">Add Images</button>
+            <label for="order-image-caption">
+              Caption
+              <input id="order-image-caption" type="text" maxlength="120" autocomplete="off">
+            </label>
+          </div>
+          <p id="order-image-message" class="message" aria-live="polite"></p>
+          <div id="order-images-grid" class="order-images-grid"></div>
+        </section>
+
+        <section id="payment-section" class="management-section" aria-labelledby="payment-title" hidden>
+          <h2 id="payment-title">Record Payment</h2>
+          <form id="payment-form" class="form-grid">
+            <label for="payment-amount">
+              <span class="currency-label-text">Amount (<span data-currency-label>USD</span>)</span>
+              <input id="payment-amount" name="payment-amount" type="number" min="0.01" step="0.01" required>
+            </label>
+            <label for="payment-date">
+              Payment date
+              <input id="payment-date" name="payment-date" type="date">
+            </label>
+            <label class="full-row" for="payment-method">
+              Method
+              <input id="payment-method" name="payment-method" type="text" autocomplete="off">
+            </label>
+            <button type="submit">Record Payment</button>
+          </form>
+        </section>
+
+        <section id="history-section" class="management-section" aria-labelledby="history-title" hidden>
+          <h2 id="history-title">Stage History</h2>
+          <ul id="stage-history-list" class="management-list">
+            <li>Load an order to view stage history.</li>
+          </ul>
+        </section>
+
+        <section id="payments-section" class="management-section" aria-labelledby="payments-title" hidden>
+          <h2 id="payments-title">Payments</h2>
+          <ul id="payments-list" class="management-list">
+            <li>Load an order to view payments.</li>
+          </ul>
+        </section>
+      </section>
+    </main>
+    <script type="module" src="js/order-management.js"></script>
+  </body>
+</html>
